@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="Styles.css">
+    <title>challenge</title>
+</head>
+<body>
+    <header>
+        <div class="caja">
+            <img src="imagenes/Vector.png" >
+        </div>
+    </header>
+   
+    <main>
+        <div class="contenido">
+            <ul class="campotex">
+                <li class="textrec">
+                    <textarea placeholder="Ingrese el texto aquí" id="mensaje" ></textarea>
+                    <p><img src="imagenes/Vectori.png"> Solo letras minúsculas y sin acentos</p>
+                    <button type="button" id="btnaz" onclick="modificarMensaje()">Encriptar</button>
+                    <button type="button" id="btngr"  onclick="restaurarMensaje()">Desencriptar</button>  
+                </li>
+                <li class="textimp">
+                    <img id="imagen" src="imagenes/Muñeco.jpg" alt="Imagen" style="margin-top: 30%;"/>
+                    <div id="anuncio" style="margin-top: 50px;">
+                       <p style="font-weight: bold; font-size: larger;">Ningún mensaje fue encontrado</p>
+                       <p style="margin-top: 5%; margin-bottom: 0;">Ingresa el texto que desees encriptar o desencriptar</p>
+                    </div>
+                    <textarea  id="mensajeModificado" style="display: none;" readonly></textarea>
+                    <button id="btncop" type="button"  style="display: none;" onclick="copiarMensaje()">Copiar</button>
+                </li>
+                
+            </ul>    
+        </div>
+        
+    </main>
+
+    <footer style="margin-top: 0;">
+            <p> © Copyright Encriptador SantiagoCP - <span id="fecha"></span></p>
+    </footer>
+    
+    <script>
+        
+        let mensajeOriginal = "";
+
+        function cambiarContenido() {
+            document.getElementById('imagen').style.display = 'none';
+            document.getElementById('anuncio').style.display = 'none';
+            document.getElementById('mensajeModificado').style.display = 'block';
+            document.getElementById('btncop').style.display = 'block';
+        }
+        function modificarMensaje() {
+            cambiarContenido()
+            let mensaje = document.getElementById("mensaje").value;
+            mensajeOriginal = mensaje;
+            mensaje = mensaje.replace(/e/g, "enter").replace(/i/g, "imes").replace(/a/g, "ai").replace(/o/g, "ober").replace(/u/g, "ufat");
+            document.getElementById("mensajeModificado").value = mensaje;
+            
+        }
+
+        function restaurarMensaje() {
+            cambiarContenido()
+            let mensaje = document.getElementById("mensaje").value;
+            mensajeOriginal = mensaje;
+            mensaje = mensaje.replace(/ai/g, "a").replace(/enter/g, "e").replace(/imes/g, "i").replace(/ober/g, "o").replace(/ufat/g, "u");
+            document.getElementById("mensajeModificado").value = mensaje;
+        }
+        function copiarMensaje() {
+            cambiarContenido()
+            let mensaje = document.getElementById("mensajeModificado");
+            mensaje.select();
+            document.execCommand("copy");
+        }
+
+        const textarea = document.getElementById("mensaje");
+
+        textarea.addEventListener("input", function() {
+            let mensajeOriginal = textarea.value;
+            mensajeOriginal = mensajeOriginal.toLowerCase().replace(/[^a-zñáéíóúü\s]/g, "");
+            textarea.value = mensajeOriginal;
+        })
+
+        var fecha = new Date()
+        var años = fecha.getFullYear()
+
+        document.getElementById("fecha").innerHTML=años
+
+    </script>
+    
+</body>
+</html>
